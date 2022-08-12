@@ -13,21 +13,23 @@ Your hand "dies" when it reaches a count of more than 5.
 - Minmax algorithm to determine best move
 
 # External Scanning
-> If you go on github and search "chopsticks ai" theres quite a lot of stuff tere. 
+> If you go on github and search "chopsticks ai" theres quite a lot of stuff there. 
+> I think what i'll try to do different (although initial submission might be similar) is to maybe allow people to play the game online (but I have never done such things before so I'm not sure if i can do it)
 
 # Listing of Key Use Cases
-> Yearly, CCA senior will do stock-take and will need to generate a report on the existing stock.
-> Start of school break, members will loan equipment and will need to return when school break ends.
+> Enjoyable, playable with friends
+
+> Helps me learn the strategy (supposably there is one) to win/draw every time :D
 
 # Skills that my project requires me to pick up
-> List out the skills that you are not familiar with that is necessary due to the project scope.
+> Not sure whether I'm going to use any python libraries, but if i am going to make it into a website then maybe flask or something
 
 # [Development Log](/devlog.md)
 > You will be updating this section regularly
 > - Week 5: Started of project
 > - Week 6 
-
 > - Week 7
 > - Week 8
 > - Week 9
 > - Week 10
+

@@ -16,6 +16,7 @@ Go google or something if you don't know the rules.
         
         while(not self.check_win()):
             for player in self.players:
+                self.display(player.index)
                 player.move()
                 if self.check_win():
                     break
@@ -32,6 +33,17 @@ Go google or something if you don't know the rules.
     def add_player(self, player):
         self.players.append(player)
     
+    def display(self, index):
+        print(f'Player {index}\'s turn: ')
+        print("Hand numbers:\t", end='')
+        for hand in self.hands:
+            print(hand.index, end='\t')
+        print()
+        print("Hand fingers:\t", end='')
+        for hand in self.hands:
+            print(hand.fingers, end='\t')
+        print()
+        
 class Player: # hands, 
     def __init__(self, hand, index):
         self.index = index
@@ -43,9 +55,11 @@ class Player: # hands,
     
     def move(self):
         print(f'Player {self.index}\'s turn: ')
+        print("Hand numbers:\t", end='')
         for hand in self.hands:
             print(hand.index, end='\t')
         print()
+        print("Hand fingers:\t", end='')
         for hand in self.hands:
             print(hand.fingers, end='\t')
         print()
@@ -58,8 +72,7 @@ class Player: # hands,
             except ValueError:
                 print("Bad input try again :")
             
-        
-        
+         
         
     
     def add_hand(self, index):

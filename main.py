@@ -1,3 +1,5 @@
+import minimax
+
 class Game: # players, moves
     def __init__(self, player, hand):
         self.player = player
@@ -19,6 +21,7 @@ Go google or something if you don't know the rules.
             for player in self.players:
                 self.display(player.index)
                 self.move(player)
+                
                 if self.check_win():
                     toggle = False
                     break

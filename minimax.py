@@ -10,7 +10,6 @@ class Minimax:
         
         opponent = (player+1)%2
         if self.check_end(board, hist):
-            # print(board[0].hands, board[1].hands, self.check_win(board, hist), hist)
             return (self.check_win(board, hist),0,0)
 
         
@@ -19,19 +18,13 @@ class Minimax:
             for target in range(len(board[opponent].hands)):
                 if board[opponent].hands[target] == 0 or board[player].hands[hand] == 0:
                     continue
-                print(board)    
                 replica = []
                 for p in board:
                     replica.append(p.copy())
                 replica[opponent].hands[target] += replica[player].hands[hand]
                 replica[opponent].check_hand()
-                print(id(replica), id(board))
-                # print(hand, target, replica, board)
-                print(board)
                 lis.append((self.run(replica, opponent, hist + [board])[0], hand, target))
-        print(lis)
         lis.sort(reverse = True)
-        print(lis)
         if player == 0:
             return lis[0]
         else:

@@ -47,11 +47,28 @@ class Player:
     
     def get_hands(self):
         return self.hands
+class GameOptions:
+    def __init__(self):
+        self.
+class Game:
+    def __init__(self):
+        print("""
+Hallooooo and welcome to this very scuffed game of chopsticks :O 
+There are various modes you can play, including playing against a cool bot to learn how to win every game!!!
 
-mini = Minimax()
-board = [Player(hand = [4,0]), Player(hand = [1,0])]
-# print(board)
-# dead = Player(hand= [0,0])
-# print(dead.check_alive())
-print(mini.run(board, 0))
-# print(minimax(board, 1))
+What mode would you like to play?   
+1) Play against a bot
+2) Play against other players
+""")
+        while True:
+            try:
+                mode = int(input("Input either 1 or 2: "))
+                if not (mode == 1 or mode == 2):
+                    raise Exception("Invalid input")
+                break
+            except:
+                print("Invalid input.\n")
+        
+        if mode == 1:
+            mini = Minimax()
+game = Game()

@@ -1,19 +1,6 @@
 from minimax import Minimax
-            
-             
-            
-        
-def check_win(board):
-    alive_counter = 0
-    for player in board:
-        if player.check_alive():
-            alive_counter += 1
-                
-    if alive_counter > 1:
-        return True
-    else:
-        return False
-    
+import options
+
 class Player:
     def __init__(self, hand_number = 2, hand = None):
         if hand != None:
@@ -47,10 +34,14 @@ class Player:
     
     def get_hands(self):
         return self.hands
-class GameOptions:
-    def __init__(self):
-        self.
+    
+
+        
 class Game:
+    
+    
+    game_options = [options.ToggleGameOptions(True, "Is spliting allowed? ")]
+    
     def __init__(self):
         print("""
 Hallooooo and welcome to this very scuffed game of chopsticks :O 
@@ -71,4 +62,16 @@ What mode would you like to play?
         
         if mode == 1:
             mini = Minimax()
+
+    
+    def check_win(self, board):
+        alive_counter = 0
+        for player in board:
+            if player.check_alive():
+                alive_counter += 1
+                    
+        if alive_counter > 1:
+            return False
+        else:
+            return True
 game = Game()

@@ -59,7 +59,7 @@ What mode would you like to play?
                 break
             except:
                 print("Invalid input.\n")
-        
+         
         if mode == 1:
             mini = Minimax()
 

@@ -23,7 +23,9 @@ What mode would you like to play?
                 break
             except:
                 print("Invalid input.\n")
-         
+        
+        players = 2
+        hands = 2
         if mode == 1:
             board = [Player(2), Minimax(2)] # minimax always as second player (since otherwise person would never win, i think)
             
@@ -33,8 +35,35 @@ What mode would you like to play?
                 hand, target, target_hand = board[pos].move(board, pos)
                 board[target].hands[target_hand] += board[pos].hands[hand]
                 
+                if pos == 1:
+                    print(f"Player {pos+1} has tapped Player {target+1}'s hand {target_hand+1} with {board[pos].hands[hand]}.")
+                
                 # toggle "pos", other possible ways could be to do (pos + 1 )%2
+                # do note that this method only works when there are two players (which minimax is limited to)
                 pos = int (not pos)
+            
+            for player in range(len(board)):
+                if board[player].check_alive():
+                    print(f"Player {player+1} wins!")
+        
+        #previously we already checked that its either 1 or 2 (cannot be anything else)
+        else:
+            board = []
+            for i in range(players):
+                board.append(Player(hands))
+            
+            pos = 0
+            while not self.check_win(board):
+                hand, target, target_hand = board[pos].move(board, pos)
+                board[target].hands[target_hand] += board[pos].hands[hand]
+                
+                # toggle "pos", other possible ways could be to do (pos + 1 )%2
+                pos = (pos+1)%players
+            
+            for player in range(len(board)):
+                if board[player].check_alive():
+                    print(f"Player {player+1} wins!")
+
 
     
     def check_win(self, board):

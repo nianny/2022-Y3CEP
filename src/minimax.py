@@ -1,7 +1,7 @@
 from player import Player
 
 class Minimax (Player):
-    store = {}
+    # store = {}
     def __init__(self, hand_number = 2, hand = None):
         super().__init__(hand_number, hand)
     
@@ -10,8 +10,8 @@ class Minimax (Player):
         if len(board) > 2:
             raise Exception("Board size too large")
         
-        if (player, board) in Minimax.store:
-            return Minimax.store[(player, board)]
+        # if (player, tuple(board)) in Minimax.store:
+        #     return Minimax.store[(player, board)]
         
         opponent = (player+1)%2
         if self.check_end(board, hist):
@@ -31,8 +31,8 @@ class Minimax (Player):
                 lis.append((self.run(replica, opponent, hist + [board])[0], hand, target))
         lis.sort(reverse = True)
         
-        Minimax.store[(0, board)] = lis[0]
-        Minimax.store[(1, board)] = lis[-1]
+        # Minimax.store[(0, tuple(board))] = lis[0]
+        # Minimax.store[(1, tuple(board))] = lis[-1]
         if player == 0:
             return lis[0]
         else:
@@ -58,3 +58,8 @@ class Minimax (Player):
             return 1
         elif board[1].check_alive() and not board[0].check_alive():
             return 0
+    
+    def move(self, board, player):
+        output = self.run(board, player)
+        
+        return output[1], (player+1)%2, output[2]

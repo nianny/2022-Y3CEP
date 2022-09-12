@@ -67,7 +67,6 @@ class Player:
     
     def move(self, board, player):
         print()
-        print()
         print(f"Player {player+1}'s turn:")
         # board[player].print_hands(f'Your hand: ')
         for i in range(len(board)):
@@ -86,62 +85,60 @@ class Player:
                 string = f'Player {i+1}: '
                 board[i].print_hands(string + ' ' * (11 - len(string)), first)
                 
-                
-        #choice of hand input
-        while True:
-            try:
-                hand = int(input("Which hand do you want to tap with: "))
-                
-                # hand pos out of range
-                if hand < 1 or hand > len(board[player].hands):
-                    raise OutOfRangeException()
-                
-                hand -= 1 #since hand data is 0 indexed while input is 1 indexed
-                
-                # you cannot add with an already "dead" hand
-                if board[player].hands[hand] == 0:
-                    raise InvalidHand()
-                break
-            
-            except OutOfRangeException:
-                print(f"Invalid input. Number has to be between 1 and {len(board[player].hands)}.") 
-                print()
-            except InvalidHand:
-                print("You cannot tap with a hand that is dead!")
-                print()
-            except:
-                print("Invalid input.")
-                print()
-                
+        # triple while loop stack :O
+        # what this does it that whenever a invalid input is triggered for the second/third input option, it forces the entire process to restart (this means that the player is able to "restart" his choice/change his decision entirely when he realises that the original input was invalid)
+        # the try-except bloc for each loop is only executed when the previous while loop is broken out of, all previous inputs are valid
+        # the third-layer while loop is therefore first executed
         
-        
-        # input for which person to tap on
         while True:
-            try:
-                target = int(input("Which player do you want to tap: "))
-                if target < 1 or target > len(board): #out of range for players
-                    raise OutOfRangeException()
+            # input for which person to tap on
+            while True:
+                #choice of hand input
+                while True:
+                    try:
+                        hand = int(input("Which hand do you want to tap with: "))
+                        
+                        # hand pos out of range
+                        if hand < 1 or hand > len(board[player].hands):
+                            raise OutOfRangeException()
+                        
+                        hand -= 1 #since hand data is 0 indexed while input is 1 indexed
+                        
+                        # you cannot add with an already "dead" hand
+                        if board[player].hands[hand] == 0:
+                            raise InvalidHand()
+                        break
+                    
+                    except OutOfRangeException:
+                        print(f"Invalid input. Number has to be between 1 and {len(board[player].hands)}.") 
+                        print()
+                    except InvalidHand:
+                        print("You cannot tap with a hand that is dead!")
+                        print()
+                    except:
+                        print("Invalid input.")
+                        print()
+                try:
+                    target = int(input("Which player do you want to tap: "))
+                    if target < 1 or target > len(board): #out of range for players
+                        raise OutOfRangeException()
+                    
+                    target -= 1 #since target data is 0 indexed while input is 1 indexed
+                    
+                    #dead player cannot be tapped on (although only applies, hopefully, when there is more than 2 players)
+                    if not board[target].check_alive(): 
+                        raise InvalidPlayer()
+                    break
                 
-                target -= 1 #since target data is 0 indexed while input is 1 indexed
-                
-                #dead player cannot be tapped on (although only applies, hopefully, when there is more than 2 players)
-                if not board[target].check_alive(): 
-                    raise InvalidPlayer()
-                break
-            
-            except InvalidPlayer:
-                print(f"Invalid input. Player {target+1} is already dead.")
-                print()
-            except OutOfRangeException:
-                print(f"Invalid input. Number has to be between 1 and {len(board)}.")
-                print()
-            except:
-                print("Invalid input.")
-                print()
-                
-            
-            
-        while True:
+                except InvalidPlayer:
+                    print(f"Invalid input. Player {target+1} is already dead.")
+                    print()
+                except OutOfRangeException:
+                    print(f"Invalid input. Number has to be between 1 and {len(board)}.")
+                    print()
+                except:
+                    print("Invalid input.")
+                    print()
             try:
                 target_hand = int(input("Which hand do you want to tap: "))
                 

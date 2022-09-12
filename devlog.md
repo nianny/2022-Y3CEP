@@ -11,10 +11,12 @@
 
 [Example of Good/Bad Changelist descriptions](https://google.github.io/eng-practices/review/developer/cl-descriptions.html)
 
-> Oops I kind of did not realise we had to fill in this as we go along, and also that I kind of procrastinated till the very last moment so...
+> Oops I kind of did not realise we had to fill in this as we go along, and also that I kind of procrastinated till the very last moment so...for context I am writing this after somewhat completing the code
 
 ## Week 5 (26 Jul - 1 Aug)
+> Thought of idea
 
+> My initial idea for how I was going to implement OOP was to have a class
 ## Week 6 (2 Aug - 8 Aug)
 
 ## Week 7 (9 Aug - 15 Aug)

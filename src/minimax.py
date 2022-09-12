@@ -1,26 +1,30 @@
 from player import Player
 
+store1 = []
+store2 = []
+
 class Minimax (Player):
     # store = {}
-    def __init__(self, hand_number = 2, hand = None):
-        super().__init__(hand_number, hand)
+    def __init__(self, hand_number = 2, hand = None, options = None):
+        super().__init__(hand_number, hand, options)
     
     # player 0 maximises, player 1 minimises
     def run(self, board, player, hist = []):
+        # print(board)
         if len(board) > 2:
             raise Exception("Board size too large")
 
-        # tupled = []
-        # for player in board:
-        #     tupled.append(tuple(player.hands))
-        # tupled = tuple(tupled)
+        tupled = []
+        for p in board:
+            tupled.append(tuple(p.hands))
+        tupled = tuple(tupled)
 
-        # if (player, tupled) in store:
-        #     return store[(player, tupled)]
+        if (player, tupled) in store1:
+            return store2[store1.index((player, tupled))]
         
         opponent = (player+1)%2
         if self.check_end(board, hist):
-            return (self.check_win(board, hist),0,0)
+            return (False, self.check_win(board, hist),0,0)
 
         
         lis = []
@@ -36,29 +40,50 @@ class Minimax (Player):
                 lis.append((False, self.run(replica, opponent, hist + [board])[1], hand, target))
         
         #taking into consideration splits
-        possi = [[0]*len(board[player].hands)]
-        for i in range(sum(board[player].hands)):
-            new_possi = []
+        if self.options[2].value:
+            possi = [[0]*len(board[player].hands)]
+            for i in range(sum(board[player].hands)):
+                new_possi = []
+                for pos in possi:
+                    for p in range(len(pos)):
+                        dup = pos.copy()
+                        dup[p] += 1
+                        new_possi.append(dup)
+                possi = new_possi
+                
             for pos in possi:
-                for p in range(len(pos)):
-                    dup = pos.copy()
-                    dup[p] += 1
-                    new_possi.append(dup)
-            possi = new_possi
-        
-        print(possi)
+                invalid = False
+                for hand in pos:
+                    if hand >= 5:
+                        invalid = True
+                        break
+                if invalid:
+                    continue
+                replica = []
+                for p in board:
+                    replica.append(p.copy())
+                replica[player].hands = pos
+                replica[player].check_hand()
+                lis.append((True, self.run(replica, opponent, hist + [board])[1], pos, 0))
             
             
-        lis.sort(reverse = True)
+        lis.sort(reverse = True, key=lambda x: x[1])
         
+        print(lis)
+        tupled = []
+        for p in board:
+            tupled.append(tuple(p.hands))
+        tupled = tuple(tupled)
+        store1.append((0, tupled))
+        store2.append(lis[0])
+        store1.append((1, tupled))
+        store2.append(lis[-1])
         
-        # tupled = []
-        # for player in board:
-        #     tupled.append(tuple(player.hands))
-        # tupled = tuple(tupled)
         # store[(0, tupled)] = lis[0]
         # store[(1, tupled)] = lis[-1]
-        
+        # print(lis[-1])
+        # print(store1)
+        # print(store2)
         if player == 0:
             return lis[0]
         else:

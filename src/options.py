@@ -1,10 +1,10 @@
 class GameOptions:
     def __init__(self, default_value, description):
         self.value = default_value  
-        self.explaination = description
+        self.explanation = description
         
     def list(self, pos):
-        print(f"{pos}. {self.explaination}", end='\t')
+        print(f"{pos}. {self.explanation}", end='\t')
 
 class ToggleGameOptions (GameOptions):
     def __init__(self, default_value, description):

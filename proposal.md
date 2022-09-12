@@ -27,5 +27,5 @@ Your hand "dies" when it reaches a count of more than 5.
 # [Development Log](/devlog.md)
 > You will be updating this section regularly
 > - Week 5: Started of project
-> - Week 10： Woohoo rushing everything moment
+> - Week 10: Woohoo rushing everything moment
 

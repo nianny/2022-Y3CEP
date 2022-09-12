@@ -8,11 +8,12 @@ class InvalidPlayer(Exception):
     pass
 
 class Player:
-    def __init__(self, hand_number = 2, hand = None):
+    def __init__(self, hand_number = 2, hand = None, options = None):
         if hand != None:
             self.hands = hand
         else:
             self.hands = [1]*hand_number
+        self.options = options
     
     def __eq__(self, __o: object):
         return self.hands == __o.hands
@@ -35,12 +36,6 @@ class Player:
                 return True
         return False
     
-    def get_hand_num(self):
-        return len(self.hands)
-    
-    def get_hands(self):
-        return self.hands
-    
     def print_hands(self, name, first = True):
         if first:
             print(f"{' '*(len(name))}", end='')
@@ -51,20 +46,8 @@ class Player:
         print(f'{name}', end='')
         for i in range(len(self.hands)):
             print(self.hands[i], end='\t')
-        print()
+        print()         
         
-    def int_input(self, message, min_value, max_value):
-        while True:
-            try:
-                output = int(input(message))
-                if output < min_value or output > max_value:
-                    raise OutOfRangeException()
-                return output
-            except OutOfRangeException as e:
-                print(f"Out of range. Please input a number between {min_value} and {max_value}.")
-            
-    
-    
     def move(self, board, player):
         print()
         print(f"Player {player+1}'s turn:")

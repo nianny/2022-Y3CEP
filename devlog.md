@@ -11,6 +11,8 @@
 
 [Example of Good/Bad Changelist descriptions](https://google.github.io/eng-practices/review/developer/cl-descriptions.html)
 
+> Oops I kind of did not realise we had to fill in this as we go along, and also that I kind of procrastinated till the very last moment so...
+
 ## Week 5 (26 Jul - 1 Aug)
 
 ## Week 6 (2 Aug - 8 Aug)

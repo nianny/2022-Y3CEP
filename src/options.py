@@ -17,9 +17,9 @@ class ToggleGameOptions (GameOptions):
     def list(self, pos):
         super().list(pos)
         if self.value:
-            print("Yes")
+            print("(Yes)")
         else:
-            print("No")
+            print("(No)")
         
 class NumGameOptions (GameOptions):
     def __init__(self, default_value, description, min_value, max_value, query_string):
@@ -40,4 +40,4 @@ class NumGameOptions (GameOptions):
     
     def list(self, pos):
         super().list(pos)
-        print(self.value)   
+        print(f'({self.value})')   

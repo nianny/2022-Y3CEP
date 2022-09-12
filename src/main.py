@@ -4,9 +4,8 @@ from player import Player
 
         
 class Game:
-    game_options = [options.ToggleGameOptions(True, "Is spliting allowed? ")]
-    
     def __init__(self):
+        self.game_options = [options.NumGameOptions(2, "Number of players", 2, 5, "How many players do you want to have"), options.NumGameOptions(2, "Number of hands", 2, 5, "How many hands should each player have"), options.ToggleGameOptions(True, "Is spliting allowed")]
         print("""
 Hallooooo and welcome to this very scuffed game of chopsticks :O 
 There are various modes you can play, including playing against a cool bot to learn how to win every game!!!
@@ -24,8 +23,33 @@ What mode would you like to play?
             except:
                 print("Invalid input.\n")
         
-        players = 2
-        hands = 2
+        print()
+        print("Game Options:")
+        for i in range(len(self.game_options)):
+            self.game_options[i].list(i+1)
+        
+        while True:
+            while True:
+                try:
+                    num = input("Index of game option you want to change (enter to continue): ")
+                    if num == '':
+                        break
+                    num = int(num)
+                    if num < 1 or num > len(self.game_options):
+                        raise Exception("Invalid input")
+            
+                    self.game_options[num-1].edit()
+                    print()
+                    print("Game Options:")
+                    for i in range(len(self.game_options)):
+                        self.game_options[i].list(i+1)
+                    break                    
+                except:
+                    print("Invalid input.\n")
+            
+            if num == '':
+                break
+        
         if mode == 1:
             board = [Player(2), Minimax(2)] # minimax always as second player (since otherwise person would never win, i think)
             

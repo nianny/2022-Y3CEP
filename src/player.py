@@ -166,6 +166,6 @@ class Player:
                 print()
                 
         print()
-        return hand, target, target_hand
+        return False, hand, target, target_hand
         
         

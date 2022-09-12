@@ -9,9 +9,14 @@ class Minimax (Player):
     def run(self, board, player, hist = []):
         if len(board) > 2:
             raise Exception("Board size too large")
-        
-        # if (player, tuple(board)) in Minimax.store:
-        #     return Minimax.store[(player, board)]
+
+        # tupled = []
+        # for player in board:
+        #     tupled.append(tuple(player.hands))
+        # tupled = tuple(tupled)
+
+        # if (player, tupled) in store:
+        #     return store[(player, tupled)]
         
         opponent = (player+1)%2
         if self.check_end(board, hist):
@@ -28,11 +33,32 @@ class Minimax (Player):
                     replica.append(p.copy())
                 replica[opponent].hands[target] += replica[player].hands[hand]
                 replica[opponent].check_hand()
-                lis.append((self.run(replica, opponent, hist + [board])[0], hand, target))
+                lis.append((False, self.run(replica, opponent, hist + [board])[1], hand, target))
+        
+        #taking into consideration splits
+        possi = [[0]*len(board[player].hands)]
+        for i in range(sum(board[player].hands)):
+            new_possi = []
+            for pos in possi:
+                for p in range(len(pos)):
+                    dup = pos.copy()
+                    dup[p] += 1
+                    new_possi.append(dup)
+            possi = new_possi
+        
+        print(possi)
+            
+            
         lis.sort(reverse = True)
         
-        # Minimax.store[(0, tuple(board))] = lis[0]
-        # Minimax.store[(1, tuple(board))] = lis[-1]
+        
+        # tupled = []
+        # for player in board:
+        #     tupled.append(tuple(player.hands))
+        # tupled = tuple(tupled)
+        # store[(0, tupled)] = lis[0]
+        # store[(1, tupled)] = lis[-1]
+        
         if player == 0:
             return lis[0]
         else:
@@ -62,4 +88,4 @@ class Minimax (Player):
     def move(self, board, player):
         output = self.run(board, player)
         
-        return output[1], (player+1)%2, output[2]
+        return output[0], output[2], (player+1)%2, output[3]

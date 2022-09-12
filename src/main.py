@@ -32,15 +32,16 @@ What mode would you like to play?
             # pos represents which player's turn it is
             pos = 0
             while not self.check_win(board):
-                hand, target, target_hand = board[pos].move(board, pos)
-                board[target].hands[target_hand] += board[pos].hands[hand]
-                
-                if pos == 1:
-                    print(f"Player {pos+1} has tapped Player {target+1}'s hand {target_hand+1} with {board[pos].hands[hand]}.")
-                
-                # toggle "pos", other possible ways could be to do (pos + 1 )%2
-                # do note that this method only works when there are two players (which minimax is limited to)
-                pos = int (not pos)
+                split, hand, target, target_hand = board[pos].move(board, pos)
+                if not split:
+                    board[target].hands[target_hand] += board[pos].hands[hand]
+                    
+                    if pos == 1:
+                        print(f"Player {pos+1} has tapped Player {target+1}'s hand {target_hand+1} with hand {board[pos].hands[hand]}.")
+                    
+                    # toggle "pos", other possible ways could be to do (pos + 1 )%2
+                    # do note that this method only works when there are two players (which minimax is limited to)
+                    pos = int (not pos)
             
             for player in range(len(board)):
                 if board[player].check_alive():

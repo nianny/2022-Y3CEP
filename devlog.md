@@ -80,3 +80,4 @@ According to [this question on stack overflow](https://stackoverflow.com/questio
 
 Now that I think about it, it might be possible to convert the hand data in the `Player` class to a tuple, and store that in the dictionary. However, this would mean that this conversion has to take place every time the check is run, which is not very efficient and might make memoisation useless (and it probably does not really benefit significantly either ways).
 
+### Splitting

@@ -8,15 +8,13 @@ class Test:
     def copy(self):
         return Test()
 
-# list1 = [Test()]
-# print(list1)
-# list2 = list1.copy()
-# print(list2)
-# list2[0].hallo = 2
-# print(list1, list2)
+class Test1 (Test):
+    def __init__(self):
+        super().__init__()
 
-t = Test()
-t2 = t.copy()
-print(t, t2)
-t.hallo = 2
-print(t, t2)
+
+test = Test()
+test1 = Test1()
+print(test)
+print(test1)
+print(test1.copy())

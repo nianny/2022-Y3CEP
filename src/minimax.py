@@ -1,12 +1,17 @@
-class Minimax:
+from player import Player
+
+class Minimax (Player):
     store = {}
-    def __init__(self):
-        pass
+    def __init__(self, hand_number = 2, hand = None):
+        super().__init__(hand_number, hand)
     
     # player 0 maximises, player 1 minimises
     def run(self, board, player, hist = []):
         if len(board) > 2:
             raise Exception("Board size too large")
+        
+        if (player, board) in Minimax.store:
+            return Minimax.store[(player, board)]
         
         opponent = (player+1)%2
         if self.check_end(board, hist):
@@ -25,6 +30,9 @@ class Minimax:
                 replica[opponent].check_hand()
                 lis.append((self.run(replica, opponent, hist + [board])[0], hand, target))
         lis.sort(reverse = True)
+        
+        Minimax.store[(0, board)] = lis[0]
+        Minimax.store[(1, board)] = lis[-1]
         if player == 0:
             return lis[0]
         else:

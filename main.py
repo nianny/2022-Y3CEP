@@ -1,4 +1,4 @@
-import minimax
+import src.minimax as minimax
 
 class Game: # players, moves
     def __init__(self, player, hand):

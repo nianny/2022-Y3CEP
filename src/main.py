@@ -1,45 +1,9 @@
 from minimax import Minimax
 import options
-
-class Player:
-    def __init__(self, hand_number = 2, hand = None):
-        if hand != None:
-            self.hands = hand
-        else:
-            self.hands = [1]*hand_number
-    
-    def __eq__(self, __o: object):
-        return self.hands == __o.hands
-    
-    def __repr__(self):
-        return str(self.hands)
-    
-    def copy(self):
-        return Player(hand=self.hands.copy())
-    
-    def check_hand(self):
-        for hand in range(len(self.hands)):
-            if self.hands[hand] >= 5:
-                self.hands[hand] = 0
-    
-    def check_alive(self):
-        self.check_hand()
-        for hand in self.hands:
-            if hand > 0:
-                return True
-        return False
-    
-    def get_hand_num(self):
-        return len(self.hands)
-    
-    def get_hands(self):
-        return self.hands
-    
+from player import Player
 
         
 class Game:
-    
-    
     game_options = [options.ToggleGameOptions(True, "Is spliting allowed? ")]
     
     def __init__(self):
@@ -61,7 +25,16 @@ What mode would you like to play?
                 print("Invalid input.\n")
          
         if mode == 1:
-            mini = Minimax()
+            board = [Player(2), Minimax(2)] # minimax always as second player (since otherwise person would never win, i think)
+            
+            # pos represents which player's turn it is
+            pos = 0
+            while not self.check_win(board):
+                hand, target, target_hand = board[pos].move(board, pos)
+                board[target].hands[target_hand] += board[pos].hands[hand]
+                
+                # toggle "pos", other possible ways could be to do (pos + 1 )%2
+                pos = int (not pos)
 
     
     def check_win(self, board):

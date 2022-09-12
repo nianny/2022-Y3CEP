@@ -80,5 +80,27 @@ According to [this question on stack overflow](https://stackoverflow.com/questio
 
 Now that I think about it, it might be possible to convert the hand data in the `Player` class to a tuple, and store that in the dictionary. However, this would mean that this conversion has to take place every time the check is run, which is not very efficient and might make memoisation useless (and it probably does not really benefit significantly either ways).
 
+> *I ended up implementing memoisation, especially since I wanted to try splitting but made use of an extremly ineffieicnt algorithm. Memoisation was done by having two lists, one for the "key" and one for the "value". The `in` keyword was used to determine whether the key was in the list, then `list.index()` was used to get the index and therefore corresponding index of the value in the second list. Initially, I tried using a dictioanry with a similar strategy but it gave the `TypeError` again :(
+
 ### Splitting
-One element of gameplay that I really wanted to make is allowing for splitting to take place both for the player and for the minimax algorithm.
+One element of gameplay that I really wanted to make is allowing for splitting to take place both for the player and for the minimax algorithm. For the minimax algorithm, I used some kind of brute force solution to find all the possible "splits" of the fingers on the hands. The method often results in unnecessary duplicates, which explains the need for memoisation to return quick answers for identical queries. Unfortunately, there is some kind of bug involved with the splitting algorithm, causing it to give weird impossible answers, but I could not reason out why it happened.
+
+As for implementing splitting for the player, while possible I could not decide on where to query the user for options. One idea I have is to include it as part of the 3-layer while loop, such that there is a while loop on the fourth layer which queries for whether the player wants to split or tap. If they choose to tap, it could then proceed to the third layer and continue as before. If they choose to split, there can be some toggle to break it out of the 3 while loops to get to one for splitting.
+
+```python
+split = False
+while True:
+    while True:
+        while True:
+            while True:
+                # query for whether player wants to split or tap
+            
+            if split:
+                break
+        if split:
+            break
+    if split:
+        break
+while True:
+    # while loop input for handling special inputs with splitting
+```

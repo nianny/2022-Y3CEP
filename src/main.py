@@ -77,8 +77,12 @@ What mode would you like to play?
         #previously we already checked that its either 1 or 2 (cannot be anything else)
         else:
             board = []
-            for i in range(players):
-                board.append(Player(hands))
+            # for i in range(players):
+            #     board.append(Player(hands))
+            
+            for i in range(self.game_options[0].value):
+                board.append(Player(self.game_options[1].value))
+                
             
             pos = 0
             while not self.check_win(board):
@@ -86,7 +90,8 @@ What mode would you like to play?
                 board[target].hands[target_hand] += board[pos].hands[hand]
                 
                 # toggle "pos", other possible ways could be to do (pos + 1 )%2
-                pos = (pos+1)%players
+                # pos = (pos+1)%players
+                pos = (pos+1)%self.game_options[0].value
             
             for player in range(len(board)):
                 if board[player].check_alive():
